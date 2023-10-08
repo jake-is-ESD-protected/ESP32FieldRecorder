@@ -11,7 +11,7 @@
 														  
 */
 
-#include "myoled.h"
+#include "myOLED.h"
 
 //all used numbers were chosen by eye
 

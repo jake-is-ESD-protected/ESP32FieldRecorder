@@ -1,6 +1,6 @@
 #include "general.h"
 #include "tasks.h"
-#include "myoled.h"
+#include "myOLED.h"
 
 //constructor for sampling-class
 sampling::sampling(){

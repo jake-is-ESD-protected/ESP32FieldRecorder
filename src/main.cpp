@@ -11,7 +11,7 @@
 
 #include "tasks.h"
 #include "mySD.h"
-#include "myoled.h"
+#include "myOLED.h"
 #include "general.h"
 //*****************************************************************************************************************************************
 /*GLOBAL VAR:

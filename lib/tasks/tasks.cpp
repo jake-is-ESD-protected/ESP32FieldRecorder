@@ -9,7 +9,7 @@
 														  
 */
 #include "tasks.h"
-#include "Wav.h"
+#include "wav.h"
 #include "mySD.h"
 #include "myOLED.h"
 #include "general.h"
@@ -327,8 +327,9 @@ void sendToSDTask(void* param){
 void manageoledTask(void* param){
 
   MicroOLED oled(PIN_RESET, DC_JUMPER);
-  Wire.begin();
   vTaskDelay(100);
+  Wire.begin();
+  // vTaskDelay(100);
   oled.begin();
   oled.clear(ALL);
   oled.clear(PAGE);

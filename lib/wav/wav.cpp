@@ -1,6 +1,6 @@
 //Contains size-adjustable wav-header with padding
 
-#include "Wav.h"
+#include "wav.h"
 
 void CreateWavHeader(byte* header, int waveDataSize, int samplingRate){
   header[0] = 'R';
