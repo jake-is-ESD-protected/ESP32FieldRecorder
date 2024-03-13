@@ -82,11 +82,10 @@ void i2s_run_out(void* p){
         if (xQueueReceive(i2s_evt_queue_out, &evt, portMAX_DELAY) == pdPASS){
             if (evt.type != I2S_EVENT_TX_DONE) continue;
             uint32_t n_write = 0;
-            do{ // YOU ARE HERE
+            do{
                 uint8_t i2s_dma_buf[I2S_BUF_DMA_SIZE];
                 i2s_pull_from_buf(i2s_dma_buf, i2s_buf_audio, n_write);
-                i2s_write(I2S_NUM_0, i2s_dma_buf, I2S_BUF_DMA_SIZE, &n_write, portMAX_DELAY);
-                i2s_push_to_buf(i2s_dma_buf, i2s_buf_audio, n_write);
+                i2s_write(I2S_NUM_1, i2s_dma_buf, I2S_BUF_DMA_SIZE, &n_write, portMAX_DELAY);
             }while (n_write > 0);
         }
     }
