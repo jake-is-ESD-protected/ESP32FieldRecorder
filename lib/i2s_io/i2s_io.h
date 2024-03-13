@@ -7,15 +7,6 @@
 #define I2S_BUF_DMA_SIZE        1024
 
 #define I2S_SAMPLING_RATE       44100
-
-#define I2S_PIN_BCLK_IN     25
-#define I2S_PIN_LRC_IN      33
-#define I2S_PIN_SD_IN      26
-
-#define I2S_PIN_BCLK_OUT    16
-#define I2S_PIN_LRC_OUT     17
-#define I2S_PIN_SD_OUT      2
-
 #define I2S_TASK_INIT_MEM_SIZE  1024
 #define I2S_TASK_RUN_MEM_SIZE   4096
 #define I2S_TASK_INIT_PRIORITY  1

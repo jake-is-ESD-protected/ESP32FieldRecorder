@@ -1,5 +1,6 @@
 #include "i2s_io.h"
 #include "driver/i2s.h"
+#include "pin_defs.h"
 
 static int32_t i2s_buf_audio[I2S_BUF_AUDIO_SIZE] = {0};
 static uint32_t read_pointer = I2S_BUF_AUDIO_SIZE / 2;
@@ -24,10 +25,10 @@ void i2s_init(void* p){
 
     i2s_pin_config_t pin_config_input = {
         .mck_io_num = I2S_PIN_NO_CHANGE,
-        .bck_io_num = I2S_PIN_BCLK_IN,
-        .ws_io_num = I2S_PIN_LRC_IN,
+        .bck_io_num = PIN_I2S_BCLK_IN,
+        .ws_io_num = PIN_I2S_LRC_IN,
         .data_out_num = I2S_PIN_NO_CHANGE,
-        .data_in_num = I2S_PIN_SD_IN
+        .data_in_num = PIN_I2S_SD_IN
     };
 
     i2s_config_t i2s_config_output = {
@@ -46,9 +47,9 @@ void i2s_init(void* p){
 
     i2s_pin_config_t pin_config_output = {
         .mck_io_num = I2S_PIN_NO_CHANGE,
-        .bck_io_num = I2S_PIN_BCLK_OUT,
-        .ws_io_num = I2S_PIN_LRC_OUT,
-        .data_out_num = I2S_PIN_SD_OUT,
+        .bck_io_num = PIN_I2S_BCLK_OUT,
+        .ws_io_num = PIN_I2S_LRC_OUT,
+        .data_out_num = PIN_I2S_SD_OUT,
         .data_in_num = I2S_PIN_NO_CHANGE
     };
 
