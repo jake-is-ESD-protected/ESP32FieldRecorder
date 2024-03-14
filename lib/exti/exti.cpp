@@ -40,7 +40,6 @@ e_err_t exti_init(void){
     if((stat = __exti_init_pin(GPIO_INTR_ANYEDGE, PIN_ROTARY_SWITCH, __exti_handler, GPIO_PULLUP_DISABLE)) != e_syserr_no_err) { return stat; }
     if((stat = __exti_init_pin(GPIO_INTR_NEGEDGE, PIN_ROTARY_A, __exti_handler, GPIO_PULLUP_DISABLE)) != e_syserr_no_err) { return e_syserr_install; }
     if((stat = __exti_init_pin(GPIO_INTR_NEGEDGE, PIN_ROTARY_B, __exti_handler, GPIO_PULLUP_DISABLE)) != e_syserr_no_err) { return e_syserr_install; }
-    
     return e_syserr_no_err;
 }
 
@@ -50,6 +49,7 @@ void IRAM_ATTR __exti_handler(void* p){
     TickType_t now = xTaskGetTickCountFromISR();
     switch((gpio_num_t)pin){
         case PIN_BUTTON:
+        
         break;
         case PIN_ROTARY_SWITCH:
         break;
