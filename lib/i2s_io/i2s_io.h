@@ -3,7 +3,7 @@
 #include "management.h"
 #include "inttypes.h"
 
-#define I2S_BUF_AUDIO_SIZE      (8192 * 2)
+#define I2S_BUF_AUDIO_SIZE      (1024 * 2)
 #define I2S_BUF_DMA_SIZE        1024
 
 #define I2S_SAMPLING_RATE       44100
