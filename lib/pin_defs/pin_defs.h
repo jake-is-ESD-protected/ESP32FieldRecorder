@@ -12,6 +12,7 @@
 
 #include "hal/gpio_types.h"
 
+#define DISPLAY_OLED
 
 // SPI --------------------------------------------
 #define PIN_SPI_CLK             GPIO_NUM_18
@@ -20,11 +21,17 @@
 #define PIN_SPI_SD_CS           GPIO_NUM_5
 // SPI --------------------------------------------
 
+#ifdef DISPLAY_OLED
 // I2C --------------------------------------------
 #define PIN_I2C_SCL             GPIO_NUM_22
 #define PIN_I2C_SDA             GPIO_NUM_21
 // I2C --------------------------------------------
-
+#else
+// UART -------------------------------------------
+#define PIN_UART_RX             GPIO_NUM_22
+#define PIN_UART_TX             GPIO_NUM_21
+// UART -------------------------------------------
+#endif
 
 // I2S input --------------------------------------
 #define PIN_I2S_BCLK_IN         GPIO_NUM_25
