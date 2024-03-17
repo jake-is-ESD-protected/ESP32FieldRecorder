@@ -18,6 +18,7 @@ typedef enum{
     e_syserr_param,
     e_syserr_install,
     e_syserr_file_io,
+    e_syserr_jes
 } e_err_t;
 
 void sys_err_handler(void);

@@ -14,6 +14,8 @@ void oled_init(void);
 
 void oled_title_screen(void);
 
+void oled_idle_screen(void);
+
 void oled_refresh_test(void);
 
 #endif // _OLED_H_

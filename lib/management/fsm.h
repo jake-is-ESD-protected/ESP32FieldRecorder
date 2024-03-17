@@ -50,7 +50,7 @@ typedef struct {
 #define FSM_HANDLE_ROTARY_TURN_ARG_RIGHT        "right"
 
 
-void fsm_init(void);
+e_err_t fsm_init(void);
 
 void fsm_handle_button(void* p);
 

@@ -1,6 +1,7 @@
 #include "i2s_io.h"
 #include "driver/i2s.h"
 #include "pin_defs.h"
+#include <jescore.h>
 
 static int32_t i2s_buf_audio[I2S_BUF_AUDIO_SIZE] = {0};
 static uint32_t read_pointer = I2S_BUF_AUDIO_SIZE / 2;
@@ -8,7 +9,7 @@ static QueueHandle_t i2s_evt_queue_in = NULL;
 static QueueHandle_t i2s_evt_queue_out = NULL;
 static uint32_t write_pointer = 0;
 
-void i2s_init(void* p){
+e_err_t i2s_init(void){
     i2s_config_t i2s_config_input = {
         .mode = (i2s_mode_t)(I2S_MODE_MASTER | I2S_MODE_RX),
         .sample_rate = I2S_SAMPLING_RATE,
@@ -53,13 +54,18 @@ void i2s_init(void* p){
         .data_in_num = I2S_PIN_NO_CHANGE
     };
 
-    i2s_driver_install(I2S_NUM_0, &i2s_config_input, 4, &i2s_evt_queue_in);
-    i2s_set_pin(I2S_NUM_0, &pin_config_input);
-    i2s_set_clk(I2S_NUM_0, I2S_SAMPLING_RATE, I2S_BITS_PER_SAMPLE_32BIT, I2S_CHANNEL_STEREO);
+    if(i2s_driver_install(I2S_NUM_0, &i2s_config_input, 4, &i2s_evt_queue_in) != ESP_OK){ return e_syserr_install; }
+    if(i2s_set_pin(I2S_NUM_0, &pin_config_input) != ESP_OK){ return e_syserr_install; }
+    if(i2s_set_clk(I2S_NUM_0, I2S_SAMPLING_RATE, I2S_BITS_PER_SAMPLE_32BIT, I2S_CHANNEL_STEREO) != ESP_OK){ return e_syserr_install; }
+    if(i2s_driver_install(I2S_NUM_1, &i2s_config_output, 4, &i2s_evt_queue_out) != ESP_OK){ return e_syserr_install; }
+    if(i2s_set_pin(I2S_NUM_1, &pin_config_output) != ESP_OK){ return e_syserr_install; }
+    if(i2s_set_clk(I2S_NUM_1, I2S_SAMPLING_RATE, I2S_BITS_PER_SAMPLE_32BIT, I2S_CHANNEL_STEREO) != ESP_OK){ return e_syserr_install; }
+    
+    vTaskDelay(I2S_BOOT_TIME / portTICK_PERIOD_MS);
 
-    i2s_driver_install(I2S_NUM_1, &i2s_config_output, 4, &i2s_evt_queue_out);
-    i2s_set_pin(I2S_NUM_1, &pin_config_output);
-    i2s_set_clk(I2S_NUM_1, I2S_SAMPLING_RATE, I2S_BITS_PER_SAMPLE_32BIT, I2S_CHANNEL_STEREO);
+    if(register_and_launch_job("i2srunin", I2S_TASK_RUN_MEM_SIZE, I2S_TASK_RUN_PRIORITY, i2s_run_in, true) != e_err_no_err) { return e_syserr_jes; }
+    if(register_and_launch_job("i2srunout", I2S_TASK_RUN_MEM_SIZE, I2S_TASK_RUN_PRIORITY, i2s_run_out, true) != e_err_no_err) { return e_syserr_jes; }
+    return e_syserr_no_err;
 }
 
 void i2s_run_in(void* p){

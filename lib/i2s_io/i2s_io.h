@@ -2,6 +2,7 @@
 
 #include "management.h"
 #include "inttypes.h"
+#include "sys_err.h"
 
 #define I2S_BUF_AUDIO_SIZE      (1024 * 2)
 #define I2S_BUF_DMA_SIZE        1024
@@ -14,7 +15,9 @@
 #define I2S_READ_TIMEOUT_TICKS  10
 #define I2S_RESOLUTION_BIT      32
 
-void i2s_init(void* p);
+#define I2S_BOOT_TIME           1000
+
+e_err_t i2s_init(void);
 
 void i2s_run_in(void* p);
 

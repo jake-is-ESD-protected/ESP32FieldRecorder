@@ -17,10 +17,14 @@
 static fsm_struct_t fsm;
 static SemaphoreHandle_t fsm_mutex;
 
-void fsm_init(void){
+e_err_t fsm_init(void){
     fsm.mode = e_fsm_idle;
     fsm.prev_mode = fsm.mode;
     fsm_mutex = xSemaphoreCreateMutex();
+    if(register_job(FSM_HANDLE_BUTTON_JOB_NAME, 2048, 1, fsm_handle_button, 0) != e_err_no_err) { return e_syserr_jes; }
+    if(register_job(FSM_HANDLE_ROTARY_SWITCH_JOB_NAME, 2048, 1, fsm_handle_rotary_switch, 0) != e_err_no_err) { return e_syserr_jes; }
+    if(register_job(FSM_HANDLE_ROTARY_TURN_JOB_NAME, 2048, 1, fsm_handle_rotary_turn, 0) != e_err_no_err) { return e_syserr_jes; }
+    return e_syserr_no_err;
 }
 
 
