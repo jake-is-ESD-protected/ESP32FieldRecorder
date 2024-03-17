@@ -13,6 +13,8 @@ void setup(){
     fsm_init();
     if(ui_init() != e_syserr_no_err) { sys_err_handler(); }
 
+    if(register_job(UI_SERVER_JOB_NAME, 4096, 1, ui_server, 1) != e_err_no_err) { sys_err_handler(); }
+    launch_job(UI_SERVER_JOB_NAME);
 
     if(register_job(FSM_HANDLE_BUTTON_JOB_NAME, 2048, 1, fsm_handle_button, 0) != e_err_no_err) { sys_err_handler(); }
     if(register_job(FSM_HANDLE_ROTARY_SWITCH_JOB_NAME, 2048, 1, fsm_handle_rotary_switch, 0) != e_err_no_err) { sys_err_handler(); }

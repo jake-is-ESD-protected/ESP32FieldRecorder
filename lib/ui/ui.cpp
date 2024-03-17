@@ -29,20 +29,28 @@ e_err_t ui_init(void){
 
 
 void ui_server(void* p){
+    vTaskDelay(UI_BOOT_DELAY / portTICK_PERIOD_MS);
     while(1){
-        uint32_t* pmode = (uint32_t*)wait_for_notification();
-        switch(*pmode){
-            case e_fsm_idle:
-                gpio_set_level(PIN_LED_RED, 0);
+        ui_cmd_t ui_cmd;
+        ui_cmd.raw = wait_for_notification();
+        ui_act_t action = (ui_act_t)ui_cmd.field.action;
+        int16_t data = ui_cmd.field.data;
+        switch(action){
+            case ui_act_none:
+            // something went wrong on a lower level
             break;
-            case e_fsm_record:
-                gpio_set_level(PIN_LED_RED, 1);
+            case ui_act_gpio:
+                gpio_set_level(PIN_LED_RED, data);
             break;
-            case e_fsm_browse:
+            case ui_act_new_bitmap:
             break;
-            case e_fsm_play:
+            case ui_act_update_bmp_db:
             break;
-            case e_fsm_settings:
+            case ui_act_update_bmp_bat:
+            break;
+            case ui_act_update_bmp_file:
+            break;
+            case ui_act_update_bmp_time:
             break;
             default:
             break;

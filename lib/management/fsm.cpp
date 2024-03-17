@@ -12,6 +12,7 @@
 #include "freertos/semphr.h"
 #include <jescore.h>
 #include "pin_defs.h"
+#include "ui.h"
 
 static fsm_struct_t fsm;
 static SemaphoreHandle_t fsm_mutex;
@@ -31,14 +32,17 @@ void fsm_handle_button(void* p){
         
     }
     else if(strcmp(args, FSM_HANDLE_BUTTON_SWITCH_ARG_RELEASE) == 0){
+        ui_cmd_t ui_cmd;
+        ui_cmd.field.action = (uint8_t)ui_act_gpio;
         if(fsm_get_mode() == e_fsm_record) { 
             fsm_set_mode(e_fsm_idle);
-            gpio_set_level(PIN_LED_RED, 0); 
+            ui_cmd.field.data = 0;
         }
         else { 
             fsm_set_mode(e_fsm_record); 
-            gpio_set_level(PIN_LED_RED, 1);
+            ui_cmd.field.data = 1;
         }
+        notify_job(UI_SERVER_JOB_NAME, ui_cmd.raw);
     }
     else{
         // unknown arg

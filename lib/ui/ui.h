@@ -14,6 +14,26 @@
 #include <inttypes.h>
 
 #define UI_SERVER_JOB_NAME  "uiserver"
+#define UI_BOOT_DELAY       2000
+
+typedef enum {
+    ui_act_none,
+    ui_act_gpio,
+    ui_act_new_bitmap,
+    ui_act_update_bmp_db,
+    ui_act_update_bmp_bat,
+    ui_act_update_bmp_file,
+    ui_act_update_bmp_time,
+    NUM_UI_ACTIONS
+} ui_act_t;
+
+typedef union {
+    struct {
+        uint8_t action;     // this will hold a (uint8_t)ui_act_t
+        int16_t data;
+    } field;
+    void* raw;
+} ui_cmd_t;
 
 e_err_t ui_init(void);
 

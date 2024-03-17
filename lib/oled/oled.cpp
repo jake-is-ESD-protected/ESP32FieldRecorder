@@ -25,7 +25,7 @@ void oled_init(void){
 
 void oled_title_screen(void){
     oled.reset(true);
-    oled.bitmap(0, 0, BMP_TITLE_SCREEN);
+    oled.bitmap(0, 0, BMP_IDLE_SCREEN);
     oled.display();
 }
 
