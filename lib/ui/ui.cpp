@@ -11,12 +11,19 @@
 #include <jescore.h>
 #include "fsm.h"
 #include "pin_defs.h"
+#include "oled.h"
 
 
 e_err_t ui_init(void){
     esp_err_t stat;
     gpio_pad_select_gpio(PIN_LED_RED);
     if((stat = gpio_set_direction(PIN_LED_RED, GPIO_MODE_OUTPUT)) != ESP_OK) { return e_syserr_install; }
+
+    oled_init();
+    vTaskDelay(1000 / portTICK_PERIOD_MS);
+    oled_title_screen();
+    // oled_refresh_test();
+
     return e_syserr_no_err;
 }
 
