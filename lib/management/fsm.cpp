@@ -24,6 +24,10 @@ e_err_t fsm_init(void){
     if(register_job(FSM_HANDLE_BUTTON_JOB_NAME, 2048, 1, fsm_handle_button, 0) != e_err_no_err) { return e_syserr_jes; }
     if(register_job(FSM_HANDLE_ROTARY_SWITCH_JOB_NAME, 2048, 1, fsm_handle_rotary_switch, 0) != e_err_no_err) { return e_syserr_jes; }
     if(register_job(FSM_HANDLE_ROTARY_TURN_JOB_NAME, 2048, 1, fsm_handle_rotary_turn, 0) != e_err_no_err) { return e_syserr_jes; }
+    ui_cmd_t ui_cmd;
+    ui_cmd.field.action = (uint8_t)ui_act_new_bitmap;
+    ui_cmd.field.data = (int16_t)e_bmp_idle;
+    notify_job(UI_SERVER_JOB_NAME, ui_cmd.raw);
     return e_syserr_no_err;
 }
 

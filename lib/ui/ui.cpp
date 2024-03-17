@@ -28,7 +28,6 @@ e_err_t ui_init(void){
 
 void ui_server(void* p){
     vTaskDelay(UI_BOOT_DELAY / portTICK_PERIOD_MS);
-    oled_idle_screen();
     while(1){
         ui_cmd_t ui_cmd;
         ui_cmd.raw = wait_for_notification();
@@ -42,6 +41,12 @@ void ui_server(void* p){
                 gpio_set_level(PIN_LED_RED, data);
             break;
             case ui_act_new_bitmap:
+                switch(data){
+                    case e_bmp_idle: oled_idle_screen(); break;
+                    case e_bmp_file: break;
+                    case e_bmp_settings: break;
+                    default: break; // unknown bitmap
+                }
             break;
             case ui_act_update_bmp_db:
             break;

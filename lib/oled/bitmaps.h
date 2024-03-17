@@ -23,6 +23,13 @@
 #define SCREEN_WIDTH  64
 #define SCREEN_HEIGHT 48
 
+typedef enum {
+    e_bmp_idle,
+    e_bmp_file,
+    e_bmp_settings,
+    NUM_BMPS
+}bmp_num_t;
+
 // ------------------------------------------------------------------------------------
 // Title screen object
 // ------------------------------------------------------------------------------------

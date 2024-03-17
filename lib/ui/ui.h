@@ -12,6 +12,7 @@
 
 #include "sys_err.h"
 #include <inttypes.h>
+#include "bitmaps.h"
 
 #define UI_SERVER_JOB_NAME  "uiserver"
 #define UI_BOOT_DELAY       2000
