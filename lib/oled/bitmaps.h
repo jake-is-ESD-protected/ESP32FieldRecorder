@@ -20,6 +20,9 @@
 
 #include <SparkFun_Qwiic_OLED.h>
 
+#define SCREEN_WIDTH  64
+#define SCREEN_HEIGHT 48
+
 // ------------------------------------------------------------------------------------
 // Title screen object
 // ------------------------------------------------------------------------------------
@@ -29,13 +32,28 @@ class bmp_title_screen final : public bmpSingleton<bmp_title_screen> {
         #include "data_title_screen.h"
         return title_screen;
     }
-    bmp_title_screen() : bmpSingleton<bmp_title_screen>(TITLE_SCREEN_WIDTH, TITLE_SCREEN_HEIGHT){}
+    bmp_title_screen() : bmpSingleton<bmp_title_screen>(SCREEN_WIDTH, SCREEN_HEIGHT){}
 };
 #define BMP_TITLE_SCREEN bmp_title_screen::instance()
 // ------------------------------------------------------------------------------------
 // Title screen object
 // ------------------------------------------------------------------------------------
 
+// ------------------------------------------------------------------------------------
+// Idle screen object
+// ------------------------------------------------------------------------------------
+class bmp_idle_screen final : public bmpSingleton<bmp_idle_screen> {
+    public:
+    const uint8_t* data(void){
+        #include "data_idle_screen.h"
+        return idle_screen;
+    }
+    bmp_idle_screen() : bmpSingleton<bmp_idle_screen>(SCREEN_WIDTH, SCREEN_HEIGHT){}
+};
+#define BMP_IDLE_SCREEN bmp_idle_screen::instance()
+// ------------------------------------------------------------------------------------
+// Idle screen object
+// ------------------------------------------------------------------------------------
 
 
 #endif // _BITMAPS_H_
